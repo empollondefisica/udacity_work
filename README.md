@@ -1,3 +1,3 @@
 # udacity work
 
-Saved work for Udacity class work
+Saved Udacity class work
