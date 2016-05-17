@@ -1,0 +1,65 @@
+
+numbers
+
+    int('89') == 89
+
+
+string (immutable, ordered)
+
+    name = 'name'
+    name = "name"
+    len(name) == 4
+
+    name[0] == 'n'
+    name[1] == 'a'
+    name[-1] == 'e'
+    name[1:2] == 'am'
+    name[:] == 'name'
+    name[::-1] == 'eman'
+
+    name.find('n') == 0
+    name.find('x') == -1
+    name.find('e', 1) == 3
+
+    str(89) == '89'
+
+    name.split() == name.split(' ')
+
+
+lists (mutable, ordered)
+
+    stooges = ['Curly', 'Moe', 'Shemp']
+    len(stooges) == 3
+
+    elem in list
+
+    item = list.pop()   # from end p = [1,2,3,4], p.pop() == 4
+
+
+
+dictionary (mutable, unordered)
+
+    elements = { 'hydrogen':1, 'helium':2, 'carbon':6 }
+    dict = { key:value, key:value, ... }
+    
+    dict[key] == value
+
+    elements['nitrogen'] = 7
+
+    print elements['lithium'] == Error
+    print 'lithium' in elements == False
+
+
+Recursive Definitions
+
+    Word -> "counter-" + Word
+    Word -> "someword"
+
+    Ancestor -> Parent
+    Ancestor -> Parent of Ancestor
+
+
+
+
+
+

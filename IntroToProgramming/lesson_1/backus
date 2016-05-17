@@ -1,0 +1,44 @@
+Grammars
+
+Backus-Naur form:
+
+    sentence -> subject verb object
+    subject -> noun
+    object -> noun
+    verb -> eat
+    verb -> like
+    noun -> I
+    noun -> python
+    noun -> cookies
+
+    Expression -> Expression Operator Expression
+    Expression -> Number
+    Operator -> +
+    Operator -> *
+    Number -> 0, 1, ...
+    Expression -> (Expression)
+
+    Grace Hopper -> programmer from World War
+    Ada King (Countess of Lovelace) -> first program writer
+
+Strings
+
+    name = 'Dave'
+    print 'Hello, ' + name + '!' + '!' + '!'
+    print '!' * 12
+
+
+    > Hello, Dave!!!
+    > !!!!!!!!!!!!
+
+
+    name[-2] = 'v'
+
+
+
+
+
+
+
+
+
