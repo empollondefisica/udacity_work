@@ -73,31 +73,22 @@ def build_map(graph):
         distances[x][y] = 1
         #print nodes[x], '->', nodes[y], ' = 1'
 
-  while missing_value(distances):
+  count = 1
+  while count < len(nodes):
     for x in range(0, len(distances)):
       for y in range(0, len(distances[x])):
         if distances[x][y] == None:
           for i in range(0, len(distances[x])):
-            if distances[x][i] != None:
+            if distances[x][i] == count:
               if distances [i][y] != None:
                 distances[x][y] = distances[x][i] + distances[i][y] 
-                #print nodes[x], '->', nodes[y], ' = ', nodes[x], '->', nodes[i], ' + ', nodes[i], '->', nodes[y], ' = ', distances[x][y]
                 break
-              #else:
-                #print nodes[x], '->', nodes[y], ' = ', nodes[x], '->', nodes[i], ' + ', nodes[i], '->', nodes[y], ' = ', None
+    count = count + 1
 
   return nodes, distances
 
 
-def missing_value(matrix):
-  for x in range(0, len(matrix)):
-    for y in range(0, len(matrix[x])):
-      if matrix[x][y] == None:
-        return True
-  return False
-
 # For example
-
 g = {'a': ['a', 'b', 'c'], 'b':['a'], 'c':['d'], 'd':['a']}
 
 nodes, distances = build_map(g)
