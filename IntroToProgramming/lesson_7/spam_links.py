@@ -78,11 +78,15 @@ def build_map(graph):
     for x in range(0, len(distances)):
       for y in range(0, len(distances[x])):
         if distances[x][y] == None:
+          smallest = None
           for i in range(0, len(distances[x])):
             if distances[x][i] == count:
               if distances [i][y] != None:
-                distances[x][y] = distances[x][i] + distances[i][y] 
-                break
+                if smallest == None:
+                  smallest = distances[x][i] + distances[i][y]
+                elif smallest > (distances[x][i] + distances[i][y]):
+                  smallest = distances[x][i] + distances[i][y] 
+          distances[x][y] = smallest
     count = count + 1
 
   return nodes, distances

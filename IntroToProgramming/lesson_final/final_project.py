@@ -134,7 +134,10 @@ def create_data_structure(string_input):
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
 def get_connections(network, user):
-    return network[user][0]
+    if user in network:
+        return network[user][0]
+    else:
+        return None
 
 # ----------------------------------------------------------------------------- 
 # get_games_liked(network, user): 
@@ -149,7 +152,10 @@ def get_connections(network, user):
 #   - If the user likes no games, return an empty list.
 #   - If the user is not in network, return None.
 def get_games_liked(network,user):
-    return network[user][1]
+    if user in network:
+        return network[user][1]
+    else:
+        return None
 
 # ----------------------------------------------------------------------------- 
 # add_connection(network, user_A, user_B): 
@@ -166,6 +172,8 @@ def get_games_liked(network,user):
 #   - If a connection already exists from user_A to user_B, return network unchanged.
 #   - If user_A or user_B is not in network, return False.
 def add_connection(network, user_A, user_B):
+    if (user_A not in network) or (user_B not in network):
+        return False
     connections = network[user_A][0]
     if user_B not in connections:
         connections.append(user_B)
@@ -212,10 +220,14 @@ def add_new_user(network, user, games):
 #   himself/herself. It is also OK if the list contains a user's primary 
 #   connection that is a secondary connection as well.
 def get_secondary_connections(network, user):
+    if user not in network:
+        return None
     sec_connections = []
     prim_connections = network[user][0]
     for connection in prim_connections:
-        sec_connections = sec_connections + network[connection][0]
+        for sec_connection in network[connection][0]:
+            if sec_connection not in sec_connections:
+                sec_connections.append(sec_connection)
     return sec_connections
 
 # -----------------------------------------------------------------------------     
@@ -231,6 +243,9 @@ def get_secondary_connections(network, user):
 #   The number of connections in common (as an integer).
 #   - If user_A or user_B is not in network, return False.
 def count_common_connections(network, user_A, user_B):
+    if (user_A not in network) or (user_B not in network):
+        return False
+
     common_connections = []
     connections_A = network[user_A][0]
     connections_B = network[user_B][0]
@@ -278,17 +293,33 @@ def count_common_connections(network, user_A, user_B):
 #   in this procedure to keep track of nodes already visited in your search. You 
 #   may safely add default parameters since all calls used in the grading script 
 #   will only include the arguments network, user_A, and user_B.
-def find_path_to_friend(network, user_A, user_B, checked = [], connections = []):
-    if not checked:
-        checked = [user_A]
+def find_path_to_friend(network, user_A, user_B, nodes = None, distances = None):
+    if (user_A not in network) or (user_B not in network):
+        return None
+    if not network[user_A][0]:
+        return None
 
-    for connection in network[user_A][0]:
-        if connection not in checked:
-            print checked
-            checked.append(connection)
-            connections = connections + find_path_to_friend(network, connection, user_B, checked, connections)
+    connections = [user_A]
+    if not distances:
+        nodes, distances = build_map(network)
 
-
+    if user_A == user_B:
+        return None
+    else:
+        x = nodes.index(user_A)
+        y = nodes.index(user_B)
+        
+        if distances[x][y] == 1:
+            print user_A, user_B
+            return [user_A, user_B]
+        else:
+            for i in range(0, len(distances[x])):
+                if distances[x][y] != None:
+                    if distances[x][i] == 1 and distances[i][y] == (distances[x][y] - 1):
+                        connections = connections + find_path_to_friend(network, nodes[i], user_B, nodes, distances)
+                        break
+                else:
+                    return None
     # your RECURSIVE solution here!
     return connections
 
@@ -330,11 +361,15 @@ def build_map(graph):
     for x in range(0, len(distances)):
       for y in range(0, len(distances[x])):
         if distances[x][y] == None:
+          smallest = None
           for i in range(0, len(distances[x])):
             if distances[x][i] == count:
               if distances [i][y] != None:
-                distances[x][y] = distances[x][i] + distances[i][y] 
-                break
+                if smallest == None:
+                  smallest = distances[x][i] + distances[i][y]
+                elif smallest > (distances[x][i] + distances[i][y]):
+                  smallest = distances[x][i] + distances[i][y] 
+          distances[x][y] = smallest
     count = count + 1
 
   return nodes, distances
@@ -342,27 +377,24 @@ def build_map(graph):
 
 net = create_data_structure(example_input)
 print net
-nodes, distances = build_map(net)
-for i in range(0, len(nodes)):
-    print nodes[i], distances[i]
-
-
-print '------------------------------------'
 print get_connections(net, "Debra")
-print '------------------------------------'
 print get_connections(net, "Mercedes")
-print '------------------------------------'
 print get_games_liked(net, "John")
-print '------------------------------------'
 print add_connection(net, "John", "Freda")
-print '------------------------------------'
 print add_new_user(net, "Debra", []) 
-print '------------------------------------'
 print add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
-print '------------------------------------'
 print get_secondary_connections(net, "Mercedes")
-print '------------------------------------'
 print count_common_connections(net, "Mercedes", "John")
-print '------------------------------------'
 print find_path_to_friend(net, "John", "Ollie")
+print find_path_to_friend(net, "Robin", "Jennie")
+print find_path_to_friend(net, "Bryant", "John")
 
+
+
+#network = create_data_structure('')
+#add_new_user(network, 'Alice', [])
+#add_new_user(network, 'Bob', [])
+#add_new_user(network, 'Carol', [])
+#add_connection(network, 'Alice', 'Bob')
+#print network
+#print find_path_to_friend(network, 'Alice', 'Carol')
