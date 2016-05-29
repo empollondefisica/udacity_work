@@ -1,0 +1,73 @@
+
+View
+    Displays some content
+    xml element
+
+    <TextView 
+        android:text=""
+        android:laout_width=""
+        android:layout_height=""
+        android:tetSize="sp" />
+
+    <ImageView 
+        android:src="@drawable/ocean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop" />
+
+ViewGroups
+    Container for views
+    Layouts
+
+    RelativeLayout
+        Position children:
+            relative to parent (align top, left, right, center, etc.)
+                layout_alignParentTop="true"
+                layout_alignParentBottom="true"
+                layout_alignParentRight="true"
+                layout_alignParentLeft="true"
+                layout_centerVertical="true"
+                layout_centerHorizontal="true"
+
+            relative to other children
+                id="@+id/ben_text_view"
+
+                layout_toLeftOf="@id/ben_text_view"
+                layout_toRightOf="@id/ben_text_view"
+                layout_above="@id/ben_text_view"
+                layout_below="@id/ben_text_view"
+
+    LinearLayout
+        vertical column or horizontal row
+        layout_weight="1"
+        layout_height="0dp"
+
+
+Whitespace
+    Padding
+        Increase height/width
+
+        padding="8dp"
+        paddingRight="8dp"
+        paddingLeft="8dp"
+        paddingTop="8dp"
+        paddingBottom="8dp"
+
+
+    Margin (need ViewGroup)
+        move away from edge
+
+        layout_margin="8dp"
+        layout_marginRight="8dp"
+        layout_marginLeft="8dp"
+        layout_marginTop="8dp"
+        layout_marginBottom="8dp"
+
+
+
+
+
+
+
+
+
